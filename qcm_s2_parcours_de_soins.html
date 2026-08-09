@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questionnaire — Le parcours de soins</title>
+<style>
+:root{--prune:#8C1E70;--pruneD:#5E1349;--pruneC:#F4E6EE;--gris:#3C3C3C;--grisM:#8A7A85;
+ --filet:#E8DCE5;--fond:#FAF6F8;--vert:#1B7A4B;--vertC:#EAF5EF;--rouge:#B3261E;--rougeC:#FCEDEC;
+ --or:#C9A961;--orC:#FCF4DC}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fond);color:var(--gris);line-height:1.5;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px 48px}
+header{background:var(--pruneD);color:#fff;padding:22px 16px 20px}
+header .in{max-width:820px;margin:0 auto}
+.marque{font-size:11px;letter-spacing:.12em;color:#E8C9DF;font-weight:700;margin-bottom:6px}
+h1{margin:0 0 6px;font-size:24px}
+header p{margin:0;color:#EBD6E4;font-size:14px}
+.card{background:#fff;border:1px solid var(--filet);border-radius:10px;padding:20px;margin-top:20px}
+.consigne{background:var(--pruneC);border-left:4px solid var(--prune);padding:12px 14px;
+ border-radius:0 6px 6px 0;font-size:14px}
+.consigne b{color:var(--pruneD)}
+.theme{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--prune);
+ font-weight:700;margin:26px 0 10px;border-bottom:1px solid var(--filet);padding-bottom:5px}
+.q{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:16px 18px;margin-bottom:14px}
+.q .n{font-size:11.5px;color:var(--grisM);font-weight:700;margin-bottom:5px}
+.q .n em{font-style:normal;color:var(--or)}
+.q .t{font-size:14.5px;font-weight:600;color:var(--pruneD);margin-bottom:12px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border:1.5px solid var(--filet);
+ border-radius:7px;margin-bottom:7px;cursor:pointer;font-size:14px;background:#fff}
+.opt:hover{border-color:var(--prune)}
+.opt.sel{border-color:var(--prune);background:var(--pruneC)}
+.opt .b{flex:0 0 auto;width:19px;height:19px;border:1.5px solid var(--grisM);
+ display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;margin-top:1px}
+.opt.rad .b{border-radius:50%}
+.opt.sel .b{background:var(--prune);border-color:var(--prune)}
+.opt.juste{border-color:var(--vert);background:var(--vertC)}
+.opt.juste .b{background:var(--vert);border-color:var(--vert)}
+.opt.rate{border-color:var(--rouge);background:var(--rougeC)}
+.opt.rate .b{background:var(--rouge);border-color:var(--rouge)}
+.opt.fige{cursor:default}
+.expl{margin-top:10px;padding:10px 12px;border-radius:7px;font-size:13.2px;display:none;
+ background:var(--fond);border-left:3px solid var(--prune)}
+.expl.on{display:block}
+.expl b{color:var(--pruneD)}
+.btn{border:0;border-radius:7px;padding:12px 24px;font-size:14.5px;font-weight:600;
+ cursor:pointer;font-family:inherit}
+.btn-p{background:var(--prune);color:#fff}
+.btn-p:disabled{background:#C9AABE;cursor:default}
+.btn-g{background:#fff;color:var(--prune);border:1px solid var(--prune)}
+.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px;justify-content:center}
+.msg{margin-top:14px;padding:11px 14px;border-radius:7px;font-size:14px;display:none}
+.msg.err{background:var(--rougeC);color:var(--rouge);border-left:4px solid var(--rouge);display:block}
+.msg.ok{background:var(--vertC);color:var(--vert);border-left:4px solid var(--vert);display:block}
+.score{background:var(--pruneD);color:#fff;border-radius:10px;padding:22px;text-align:center;
+ display:none;margin-top:20px}
+.score.on{display:block}
+.score .n{font-size:36px;font-weight:700}
+.score p{margin:8px 0 0;color:#EBD6E4;font-size:14px}
+.bilan{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:20px}
+.bt{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:14px}
+.bt .h{font-size:13px;font-weight:700;color:var(--pruneD);margin-bottom:6px}
+.bt .v{font-size:20px;font-weight:700}
+.bt .c{font-size:12.5px;color:var(--grisM);margin-top:3px}
+.bt.a{border-left:4px solid var(--vert)} .bt.a .v{color:var(--vert)}
+.bt.b{border-left:4px solid var(--or)}   .bt.b .v{color:#8a6d1f}
+.bt.c2{border-left:4px solid var(--rouge)} .bt.c2 .v{color:var(--rouge)}
+footer{text-align:center;color:var(--grisM);font-size:11px;padding:24px 16px 30px}
+</style></head><body>
+
+<header><div class="in">
+<div class="marque">TMK PERFORMANCES</div>
+<h1>Questionnaire — Le parcours de soins</h1>
+<p>Séquence 2 · 15 questions · Seuil de réussite 70&nbsp;%</p>
+</div></header>
+
+<div class="wrap">
+<div class="card"><div class="consigne">Répondez aux 15 questions, puis validez l'ensemble&nbsp;: la correction et les explications s'affichent seulement à ce moment-là. Une question attend <b>plusieurs réponses</b>&nbsp;: elle est signalée, et il faut toutes les cocher pour marquer le point. Le copier-coller est désactivé. Vous pouvez recommencer autant de fois que vous le souhaitez.</div></div>
+<div id="liste"></div>
+
+<div class="bar">
+  <button class="btn btn-p" id="btnV" onclick="valider()">Valider mes réponses</button>
+  <button class="btn btn-g" onclick="rejouer()">Recommencer</button>
+</div>
+<div class="msg" id="msg"></div>
+
+<div class="score" id="score">
+  <div class="n" id="scoreN">—</div>
+  <p id="scoreT"></p>
+</div>
+<div class="bilan" id="bilan"></div>
+
+<footer>TMK Performances - N° Siret&nbsp;: 49841924100027 - Code NAF&nbsp;: 8559A</footer>
+</div>
+
+<script>const Q = {"positionnement": false, "corrige": true, "seuil": 70, "libelleBouton": "Valider mes réponses", "questions": [{"th": "Le médecin traitant et le correspondant", "rep": [2], "t": "La déclaration d'un médecin traitant est&nbsp;:", "o": ["obligatoire, sous peine de radiation de l'assurance maladie", "faite d'office par la caisse au vu des consultations du patient", "un acte volontaire, fait conjointement par le patient et le médecin, modifiable à tout moment", "définitive une fois enregistrée"], "x": "Le dispositif ne repose pas sur une obligation mais sur une incitation financière. La déclaration se modifie sans avoir à se justifier."}, {"th": "Le médecin traitant et le correspondant", "rep": [1], "t": "Le médecin traitant&nbsp;:", "o": ["est nécessairement un généraliste", "n'est pas nécessairement un généraliste", "doit exercer dans la commune du patient", "est désigné par la caisse d'assurance maladie"], "x": "Rien n'impose que le médecin traitant soit généraliste, ni qu'il soit le praticien le plus proche du domicile."}, {"th": "Le médecin traitant et le correspondant", "rep": [0], "t": "Un spécialiste vers lequel le médecin traitant a orienté son patient est appelé&nbsp;:", "o": ["médecin correspondant", "médecin référent", "médecin conventionné", "médecin de second recours"], "x": "Le patient consultant un médecin correspondant reste dans le parcours et est remboursé comme s'il avait vu son médecin traitant."}, {"th": "Le médecin traitant et le correspondant", "rep": [1], "t": "Pour un patient suivi régulièrement par un spécialiste dans le cadre d'une pathologie chronique, l'orientation du médecin traitant&nbsp;:", "o": ["doit être renouvelée à chaque consultation", "vaut pour la séquence de soins et n'a pas à être renouvelée à chaque fois", "doit être renouvelée une fois par an", "n'est jamais nécessaire pour une pathologie chronique"], "x": "L'adressage est initial. C'est une situation très mal comprise des assurés, qui craignent souvent de sortir du parcours."}, {"th": "Le médecin traitant et le correspondant", "rep": [0], "t": "Un patient de 45 ans n'ayant déclaré aucun médecin traitant consulte un généraliste. Il est&nbsp;:", "o": ["hors du parcours de soins", "dans le parcours, puisqu'il consulte un généraliste", "dans le parcours, mais seulement pour la première consultation", "dispensé du parcours faute de médecin traitant"], "x": "L'absence de médecin traitant place le patient hors parcours pour l'essentiel de ses consultations. C'est la première question à poser à un client qui s'étonne de son décompte."}, {"th": "Les accès directs et les exceptions", "rep": [0, 1, 3], "t": "Quelles spécialités sont accessibles directement, sans orientation du médecin traitant et sans sortir du parcours&nbsp;?", "o": ["la gynécologie", "l'ophtalmologie", "la cardiologie", "la stomatologie"], "x": "Gynécologie, ophtalmologie et stomatologie sont en accès direct, ainsi que la psychiatrie pour les seize à vingt-cinq ans. La cardiologie suppose une orientation."}, {"th": "Les accès directs et les exceptions", "rep": [1], "t": "L'accès direct au psychiatre sans sortir du parcours est ouvert aux patients&nbsp;:", "o": ["de moins de seize ans", "de seize à vingt-cinq ans", "de tout âge", "de plus de soixante ans"], "x": "Au-delà de vingt-cinq ans, la consultation d'un psychiatre sans orientation du médecin traitant fait sortir du parcours."}, {"th": "Les accès directs et les exceptions", "rep": [2], "t": "Un patient tombe malade pendant ses vacances, à plusieurs centaines de kilomètres de chez lui, et consulte un généraliste sur place. Il est&nbsp;:", "o": ["hors parcours, faute d'orientation", "hors parcours, sauf s'il prévient sa caisse", "dans une situation assimilée au parcours", "dans le parcours seulement s'il s'agit d'une urgence vitale"], "x": "L'éloignement du lieu de résidence habituelle est assimilé au parcours, comme l'urgence, le remplacement et l'indisponibilité du médecin traitant."}, {"th": "Les accès directs et les exceptions", "rep": [0], "t": "Les patients de moins de seize ans&nbsp;:", "o": ["n'ont pas à déclarer de médecin traitant et sont toujours dans le parcours", "doivent déclarer un pédiatre comme médecin traitant", "sont hors parcours tant qu'aucun médecin traitant n'est déclaré", "relèvent du médecin traitant de leurs parents"], "x": "La logique du parcours ne s'applique qu'à partir de seize ans."}, {"th": "Les accès directs et les exceptions", "rep": [1], "t": "Ce qu'il faut retenir de la liste des exceptions, c'est que le parcours sanctionne&nbsp;:", "o": ["toute consultation d'un spécialiste", "le contournement délibéré du suivi coordonné, pas l'impossibilité matérielle de le respecter", "l'absence de lettre écrite du médecin traitant", "les seules consultations de médecine générale"], "x": "Retenir la logique plutôt que la liste permet de trancher les situations qui ne figurent dans aucune liste."}, {"th": "Les conséquences du non-respect", "rep": [1], "t": "Hors parcours, ce qui change dans le calcul, c'est&nbsp;:", "o": ["la base de remboursement, qui est abaissée", "la part remboursée sur la base, qui est minorée", "le prix que le médecin peut facturer, qui est plafonné", "le taux appliqué par le contrat santé"], "x": "La base est une valeur de référence : elle ne bouge pas. C'est le remboursement calculé sur cette base qui est amputé."}, {"th": "Les conséquences du non-respect", "rep": [0], "t": "La minoration appliquée hors parcours&nbsp;:", "o": ["ne peut jamais être remboursée par un contrat responsable", "est remboursée par le contrat si la garantie dépasse 100&nbsp;% de la base", "est remboursée par la Sécurité sociale l'année suivante", "est plafonnée par le contrat santé"], "x": "La réglementation l'interdit expressément aux contrats responsables, qui représentent la quasi-totalité du marché."}, {"th": "Les conséquences du non-respect", "rep": [2], "t": "Un médecin consultant un patient hors parcours&nbsp;:", "o": ["ne peut appliquer aucun supplément", "doit informer la caisse dans les huit jours", "est autorisé à pratiquer un dépassement d'honoraires particulier, même en honoraires opposables", "doit refuser la consultation"], "x": "C'est la conséquence la moins connue, et elle s'ajoute à la minoration du remboursement."}, {"th": "Les conséquences du non-respect", "rep": [1], "t": "La minoration du remboursement hors parcours est&nbsp;:", "o": ["proportionnelle sans limite à la base de remboursement", "égale à quarante points du taux, mais plafonnée à un montant maximal", "un montant fixe identique pour tous les actes", "calculée sur le montant réellement facturé"], "x": "C'est ce plafonnement qui explique les deux formulations que l'on rencontre : un taux abaissé sur les bases faibles, un montant retranché sur les bases élevées. Une seule règle, deux écritures."}, {"th": "Les conséquences du non-respect", "rep": [3], "t": "Un client s'étonne d'un remboursement plus faible que prévu. Quelles questions posez-vous en premier&nbsp;?", "o": ["le nom de sa mutuelle et son niveau de garantie", "le montant exact qu'il a payé et le mode de règlement", "la date de la consultation et le nom du praticien", "s'il a déclaré un médecin traitant, s'il a été orienté par lui, et sinon s'il relevait d'un accès direct"], "x": "Ces trois questions posées, vous savez si le dossier est dans ou hors parcours — donc quel taux appliquer, avant même de commencer à calculer."}]};</script>
+<script>
+['copy','cut','paste','contextmenu','dragstart'].forEach(e =>
+  document.addEventListener(e, ev => ev.preventDefault()));
+
+const REP = {};      /* index de question -> tableau d'index d'options */
+let fini = false;
+
+function rendre(){
+  let h = "", theme = null;
+  Q.questions.forEach((q, i) => {
+    if(q.th !== theme){ theme = q.th; h += '<div class="theme">' + theme + '</div>'; }
+    const multi = q.rep.length > 1;
+    h += '<div class="q" id="q' + i + '"><div class="n">Question ' + (i+1)
+       + (multi ? ' <em>— plusieurs réponses attendues</em>' : '') + '</div>'
+       + '<div class="t">' + q.t + '</div>';
+    q.o.forEach((o, j) => {
+      h += '<div class="opt' + (multi ? '' : ' rad') + '" id="o' + i + '_' + j
+         + '" onclick="choisir(' + i + ',' + j + ')"><span class="b">✓</span><span>' + o + '</span></div>';
+    });
+    if(q.x) h += '<div class="expl" id="x' + i + '"></div>';
+    h += '</div>';
+  });
+  document.getElementById("liste").innerHTML = h;
+}
+
+function choisir(i, j){
+  if(fini) return;
+  const q = Q.questions[i], multi = q.rep.length > 1;
+  REP[i] = REP[i] || [];
+  if(multi){
+    const k = REP[i].indexOf(j);
+    if(k >= 0) REP[i].splice(k, 1); else REP[i].push(j);
+  } else REP[i] = [j];
+  q.o.forEach((_, k) =>
+    document.getElementById("o" + i + "_" + k).classList.toggle("sel", REP[i].includes(k)));
+}
+
+function valider(){
+  if(fini) return;
+  const manquantes = Q.questions.map((q,i) => i).filter(i => !REP[i] || !REP[i].length);
+  if(manquantes.length){
+    const m = document.getElementById("msg");
+    m.className = "msg err";
+    m.textContent = manquantes.length === 1
+      ? "Une question est sans réponse (question " + (manquantes[0]+1) + ")."
+      : manquantes.length + " questions sont sans réponse. Répondez à tout avant de valider.";
+    return;
+  }
+  fini = true;
+  const parTheme = {};
+  let pts = 0;
+  Q.questions.forEach((q, i) => {
+    const att = q.rep.slice().sort().join(","), don = REP[i].slice().sort().join(",");
+    const ok = (att === don);
+    if(ok) pts++;
+    parTheme[q.th] = parTheme[q.th] || {n:0, ok:0};
+    parTheme[q.th].n++; if(ok) parTheme[q.th].ok++;
+    q.o.forEach((_, j) => {
+      const el = document.getElementById("o" + i + "_" + j);
+      el.classList.add("fige");
+      if(Q.corrige){
+        if(q.rep.includes(j)) el.classList.add("juste");
+        else if(REP[i].includes(j)) el.classList.add("rate");
+      }
+    });
+    if(Q.corrige && q.x){
+      const x = document.getElementById("x" + i);
+      x.innerHTML = "<b>" + (ok ? "Juste." : "À revoir.") + "</b> " + q.x;
+      x.classList.add("on");
+    }
+  });
+  const b = document.getElementById("btnV");
+  b.disabled = true; b.textContent = "Questionnaire validé";
+  document.getElementById("msg").className = "msg";
+  document.getElementById("msg").textContent = "";
+  bilan(pts, parTheme);
+}
+
+function bilan(pts, parTheme){
+  const n = Q.questions.length, pc = Math.round(pts / n * 100);
+  document.getElementById("scoreN").textContent = Q.positionnement
+      ? pts + " / " + n
+      : pts + " / " + n + "  ·  " + pc + " %";
+  document.getElementById("scoreT").textContent = Q.positionnement
+    ? "Ce test n'est pas noté. Il vous indique, thème par thème, où porter votre attention pendant la journée."
+    : (pc >= Q.seuil ? "Séquence acquise. Vous pouvez passer à la suite."
+                     : "En dessous du seuil de " + Q.seuil + " %. Reprenez la capsule et la fiche mémo avant de poursuivre.");
+  document.getElementById("score").classList.add("on");
+  let h = "";
+  Object.keys(parTheme).forEach(t => {
+    const o = parTheme[t], r = o.ok / o.n;
+    const cls = r >= 0.75 ? "a" : (r >= 0.4 ? "b" : "c2");
+    const lab = Q.positionnement
+      ? (r >= 0.75 ? "Déjà solide" : (r >= 0.4 ? "Partiellement acquis" : "À découvrir"))
+      : (r >= 0.75 ? "Acquis" : (r >= 0.4 ? "Fragile" : "À reprendre"));
+    h += '<div class="bt ' + cls + '"><div class="h">' + t + '</div><div class="v">' + lab
+       + '</div><div class="c">' + o.ok + " bonne(s) réponse(s) sur " + o.n + '</div></div>';
+  });
+  document.getElementById("bilan").innerHTML = h;
+  const sc = document.getElementById("score");
+  if(sc.scrollIntoView) sc.scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function rejouer(){
+  Object.keys(REP).forEach(k => delete REP[k]);
+  fini = false;
+  rendre();
+  document.querySelectorAll(".expl").forEach(x => x.classList.remove("on"));
+  const b = document.getElementById("btnV");
+  b.disabled = false; b.textContent = Q.libelleBouton;
+  document.getElementById("score").classList.remove("on");
+  document.getElementById("msg").className = "msg";
+  if(window.scrollTo) window.scrollTo({top:0, behavior:"smooth"});
+}
+
+rendre();
+</script>
+</body></html>
